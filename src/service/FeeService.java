@@ -50,7 +50,6 @@ public class FeeService {
         List<Fee> fees = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM fees WHERE 1=1");
 
-        // Xây dựng điều kiện tìm kiếm
         if (!feeId.isEmpty()) {
             sql.append(" AND fee_id = ?");
         }

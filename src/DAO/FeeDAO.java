@@ -127,44 +127,41 @@ public class FeeDAO implements Search{
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             // In thông tin để kiểm tra
-            System.out.println("Fee Type: " + fee.getFeeType()); // Kiểm tra Fee Type
-            statement.setString(1, fee.getFeeType().name()); // Chuyển enum FeeType thành String
+            System.out.println("Fee Type: " + fee.getFeeType());
+            statement.setString(1, fee.getFeeType().name());
 
-            System.out.println("Fee Amount: " + fee.getFeeAmount()); // Kiểm tra Fee Amount
-            statement.setDouble(2, fee.getFeeAmount()); // Cập nhật số tiền
+            System.out.println("Fee Amount: " + fee.getFeeAmount());
+            statement.setDouble(2, fee.getFeeAmount());
 
-            // Kiểm tra nếu chưa trả phí (is_paid == 0), đặt payment_date là NULL
             if (fee.getIs_paid() == 1) {
-                System.out.println("Payment Date: " + fee.getPaymentDate()); // Kiểm tra Payment Date
-                statement.setString(3, fee.getPaymentDate()); // Nếu đã trả phí, sử dụng ngày thanh toán
+                System.out.println("Payment Date: " + fee.getPaymentDate());
+                statement.setString(3, fee.getPaymentDate());
             } else {
                 System.out.println("Setting Payment Date to NULL as fee is not paid.");
-                statement.setNull(3, java.sql.Types.DATE); // Nếu chưa trả phí, đặt payment_date là NULL
+                statement.setNull(3, java.sql.Types.DATE);
             }
 
-            System.out.println("Student ID: " + fee.getStudent().getStudentId()); // Kiểm tra Student ID
-            statement.setInt(4, fee.getStudent().getStudentId()); // Cập nhật Student ID
+            System.out.println("Student ID: " + fee.getStudent().getStudentId());
+            statement.setInt(4, fee.getStudent().getStudentId());
 
-            System.out.println("Is Paid: " + fee.getIs_paid()); // Kiểm tra trạng thái đã trả phí
-            statement.setInt(5, fee.getIs_paid()); // Cập nhật trạng thái thanh toán (is_paid)
+            System.out.println("Is Paid: " + fee.getIs_paid());
+            statement.setInt(5, fee.getIs_paid());
 
-            System.out.println("Fee ID: " + fee.getFeeId()); // Kiểm tra Fee ID
-            statement.setInt(6, fee.getFeeId()); // Cập nhật ID của khoản phí
+            System.out.println("Fee ID: " + fee.getFeeId());
+            statement.setInt(6, fee.getFeeId());
 
             // Thực thi câu lệnh cập nhật
             int rowsUpdated = statement.executeUpdate();
-            System.out.println("Rows updated: " + rowsUpdated); // Kiểm tra số hàng đã được cập nhật
+            System.out.println("Rows updated: " + rowsUpdated);
 
-            return rowsUpdated > 0; // Trả về true nếu cập nhật thành công (số hàng cập nhật > 0)
+            return rowsUpdated > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace(); // In lỗi nếu có
+            e.printStackTrace();
         }
 
-        return false; // Trả về false nếu có lỗi
+        return false;
     }
-
-
 
     public boolean deleteFee(int feeId) {
         String sql = "DELETE FROM fees WHERE fee_id = ?";
@@ -177,31 +174,4 @@ public class FeeDAO implements Search{
             return false;
         }
     }
-//    public Fee getFeeById(int feeId) {
-//        String sql = "SELECT * FROM fees WHERE fee_id = ?";
-//        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-//
-//            statement.setInt(1, feeId);
-//            try (ResultSet resultSet = statement.executeQuery()) {
-//                if (resultSet.next()) {
-//                    Fee fee = new Fee();
-//                    fee.setFeeId(resultSet.getInt("fee_id"));
-//                    fee.setFeeType(resultSet.getString("fee_type"));
-//                    fee.setFeeAmount(resultSet.getDouble("fee_amount"));
-//                    fee.setPaymentDate(resultSet.getString("payment_date"));
-//
-//                    Student student = new Student();
-//                    student.setStudentId(resultSet.getInt("student_id"));
-//                    fee.setStudent(student);
-//
-//                    fee.setIs_paid(resultSet.getInt("is_paid"));
-//
-//                    return fee;
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }

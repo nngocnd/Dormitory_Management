@@ -22,9 +22,8 @@ public class MainFrame extends JFrame {
         setTitle("Hệ thống quản lý ký túc xá");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);
-        setLocationRelativeTo(null); // Căn giữa màn hình
+        setLocationRelativeTo(null);
 
-        // Tạo các panel
         studentPanel = new StudentPanel();
         roomPanel = new RoomPanel();
         contractPanel = new ContractPanel();
@@ -59,15 +58,12 @@ public class MainFrame extends JFrame {
                 "About", JOptionPane.INFORMATION_MESSAGE));
         helpMenu.add(aboutMenuItem);
 
-        // Thêm menu vào menuBar
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
 
-        // Đặt menuBar cho JFrame
         setJMenuBar(menuBar);
     }
 
-    // Getter cho các panel (nếu cần sử dụng trong Controller)
     public StudentPanel getStudentPanel() {
         return studentPanel;
     }
